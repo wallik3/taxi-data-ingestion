@@ -1,0 +1,62 @@
+services:
+  pgdatabase:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    networks:
+      - pg-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    env_file:
+      - .env
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json # Auto-connect to postgres server  
+    ports:
+      - "${PGADMIN_PORT}:80"
+    networks:
+      - pg-network
+
+
+  # Q : Why don't we run a container "ingest-data" in docker-compose.yaml 
+  # A : Since it does not host forever or long-running job like container "postgres" & "pg-admin", it's a one-time job run
+
+  # ingest:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   image: taxi_ingest:v001
+  #   depends_on:
+  #     - pgdatabase
+  #   command:
+  #     - --pg-user=root
+  #     - --pg-pass=root
+  #     - --pg-host=pgdatabase
+  #     - --pg-port=5432
+  #     - --pg-db=ny_taxi
+  #     - --target-table=yellow_taxi_trips_2021_2
+  #     - --year=2021
+  #     - --month=2
+  #     - --chunksize=100000
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+
+networks:
+  pg-network:
+    name: pg-network
+    driver: bridge

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "taxi-data-ingestion"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Saran P.", email = "runpan4work@gmail.com" }
+]
+
+dependencies = [
+    "pandas>=2.0",
+    "click>=8.1",
+    "sqlalchemy>=2.0.46",
+    "tqdm>=4.67.1",
+    "psycopg2-binary>=2.9.11",
+    "ipykernel>=6.31.0",
+    "pydantic-settings>=2.11.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "jupyterlab>=4.0",
+    "ipykernel>=6.0"
+]
