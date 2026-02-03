@@ -11,6 +11,12 @@
 docker-compose up
 ```
 
+or 
+
+```sh
+make up
+```
+
 - This will spin up the Postgres and pgAdmin containers.
 
 #### Step 2 : Build the ingestion image
@@ -18,6 +24,12 @@ docker-compose up
 
 ```sh
 docker build -t taxi_ingest:v001 .
+```
+
+or
+
+```sh
+make build-ingest-data-pipeline
 ```
 
 #### Ingesting Data
@@ -29,6 +41,12 @@ docker run -it \
   taxi_ingest:v001 \
     --year=2021 \
     --month=2 \
+```
+
+or
+
+```sh
+make ingest-data YEAR=2021 MONTH=2
 ```
 
 #### Verify the Result

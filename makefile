@@ -15,9 +15,9 @@ build-ingest-data-pipeline:
 	docker build -f Dockerfile -t taxi_ingest:v001 .
 
 ingest-data:
-	docker run -it --rm \
-		--year=$(YEAR) \
-		--month=$(MONTH)
+	docker run -it --rm taxi_ingest:v001 \
+	--year=$(YEAR) \
+	--month=$(MONTH)
 
 ## Start services (detached)
 up:
