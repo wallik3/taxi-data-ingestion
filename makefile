@@ -15,9 +15,12 @@ build-ingest-data-pipeline:
 	docker build -f Dockerfile -t taxi_ingest:v001 .
 
 ingest-data:
-	docker run -it --rm taxi_ingest:v001 \
+	docker run -it --rm \
+	--network pg-network \
+	taxi_ingest:v001 \
 	--year=$(YEAR) \
-	--month=$(MONTH)
+	--month=$(MONTH) \
+	--pg-host=pgdatabase \
 
 ## Start services (detached)
 up:

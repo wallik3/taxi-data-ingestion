@@ -32,15 +32,16 @@ or
 make build-ingest-data-pipeline
 ```
 
-#### Ingesting Data
+#### Step 3 : Ingesting Data
 - To ingest data, run the ingestion container with the desired year and month as arguments (eg. year=2021, month=2) :
 
 ```
-docker run -it \
-  --network=pg-network \
-  taxi_ingest:v001 \
-    --year=2021 \
-    --month=2 \
+docker run -it --rm \
+	--network pg-network \
+	taxi_ingest:v001 \
+	--year=$(YEAR) \
+	--month=$(MONTH) \
+	--pg-host=pgdatabase \
 ```
 
 or

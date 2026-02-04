@@ -20,6 +20,11 @@
     3. pgAdmin
         - A web-based UI for inspecting and managing the Postgres database
 
+## Example Result
+- After following CONTRIBUTING.md and completing Step 3: Ingesting Data, the table will be visible in pgAdmin.
+
+![result](assets/images/pg-admin-after-ingest.png)
+
 ## Purpose
 - The goal of this project is to:
 
@@ -32,3 +37,4 @@
 ## Next Release
 - We will add airflow job to automate trigger the ingest-pipeline every month
 - Demonstrate upload to Google Cloud
+- Append data on each ingestion run instead of truncating, with an added dt_loaded_date column
